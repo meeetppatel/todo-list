@@ -1,0 +1,120 @@
+:root {
+    --black: #010b13;
+    --light-black: #181b26;
+    --whit2: #ece9e3;
+    --white: #f4f0ec;
+}
+
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* html{
+    position: relative;
+    min-height:100%
+} */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+main {
+    min-height: 100vh;
+    background-color: var(--white);
+    display:flex;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+    background-color: var(--whit2);
+    color: var(--black);
+    min-height: 100vh;
+    width: 25vw;
+}
+
+button,
+input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+i{
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.top-btns,
+.project {
+    padding: 10px;
+    text-align: left;
+}
+
+
+
+
+.right{
+    padding: 20px 40px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    min-width:75vw;
+    min-height: 100vh;
+}
+.tasks {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.task{
+    padding: 20px;
+    border: 1px solid var(--black);
+    border-radius:5px;
+}
+
+#addtask {
+    width: 200px;
+}
