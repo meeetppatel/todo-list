@@ -51,7 +51,7 @@ const formDisplay = () =>{
         projectform.classList.add("hidden");
     }
     const hidetaskForm = () =>{
-        task.classList.add("hidden");
+        taskform.classList.add("hidden");
     }
     const showprojectForm = () =>{
         projectform.classList.remove("hidden");
@@ -59,11 +59,43 @@ const formDisplay = () =>{
     }
     const showtaskForm = () =>{
         taskform.classList.remove("hidden");
-        task.reset();
+        taskform.reset();
     }
 
     return{hideprojectForm,hidetaskForm,showprojectForm,showtaskForm};
 }
+
+
+
+/***/ }),
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "taskevents": () => (/* binding */ taskevents)
+/* harmony export */ });
+/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+
+
+
+const taskevents = () => {
+    const addtaskBtn = document.getElementById("addtask");
+    addtaskBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showtaskForm);
+
+    const cancelBtn = document.getElementById("taskcancelbtn");
+    cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm);
+
+    const submitBtn = document.getElementById("tasksubmitbtn");
+    submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        // console.log(projectArray);
+        // addProjectToArray();
+    });
+}
+
+
+
 
 
 
@@ -129,9 +161,12 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+
 
 
 (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.projectevents)();
+(0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
 })();
 
 /******/ })()
