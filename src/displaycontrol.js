@@ -9,7 +9,7 @@ const formDisplay = () =>{
         projectform.classList.add("hidden");
     }
     const hidetaskForm = () =>{
-        task.classList.add("hidden");
+        taskform.classList.add("hidden");
     }
     const showprojectForm = () =>{
         projectform.classList.remove("hidden");
@@ -17,7 +17,7 @@ const formDisplay = () =>{
     }
     const showtaskForm = () =>{
         taskform.classList.remove("hidden");
-        task.reset();
+        taskform.reset();
     }
 
     return{hideprojectForm,hidetaskForm,showprojectForm,showtaskForm};
