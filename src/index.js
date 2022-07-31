@@ -1,1 +1,3 @@
-console.log("ly2")
+import { projectevents } from "./projectcontrol";
+
+projectevents();
