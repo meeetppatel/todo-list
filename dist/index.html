@@ -38,7 +38,22 @@
                     <button class="project"><i class="fas fa-tasks"></i>project1</button>
                     <button class="project"><i class="fas fa-tasks"></i>project2</button>
                 </div>
+
+                <form id="projectForm" class="hidden" autocomplete="off">
+                    <div class="projectIcon">
+                        <span><i class="fas fa-tasks"></i></span>
+                    </div>
+                    <div class="inputField">
+                        <input type="text" id="projectInput" placeholder="Enter Project Name" maxlength="24">
+                        <div class="formButtons">
+                            <input type="submit" class="projectSubmitBtn" value="Add">
+                            <input type="button" class="projectCancelBtn" value="Cancel">
+                        </div>
+                    </div>
+                </form>
+
                 <button id="addproject" class="project"><i class="fas fa-plus"></i>Add Project</button>
+
             </div>
         </div>
 
@@ -49,8 +64,26 @@
                     <p>lorem ipsum dolor sit amet,</p>
                 </div>
             </div>
+
+            <form id="listForm" class="hidden" autocomplete="off">
+                <div class="inputField">
+                    <label>Title:</label>
+                    <input type="text" id="listInput" placeholder="What to do?">
+                    <label>Details(optional):</label>
+                    <textarea type="text" id="listInputDetail" placeholder="eg: I'm just gonna procrastinate, aren't I?" wrap="hard"></textarea>
+                    <label>Date:</label>
+                    <input type="date" id="listInputDate" >
+                    <div class="formButtons">
+                        <input type="submit" class="listSubmitBtn" value="Add">
+                        <input type="button" class="listCancelBtn" value="Cancel">
+                    </div>
+                </div>
+            </form>
+
+
             <button id="addtask"><i class="fas fa-plus"></i>Add Task</button>
         </div>
     </main>
 </body>
+
 </html>
