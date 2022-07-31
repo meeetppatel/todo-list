@@ -119,10 +119,11 @@ input[type=date]{
     font-family: 'Alata';
     font-size:1rem;
     background-color: white;
-    border: solid 2px #273746;
-    border-radius: 3px;
+    border: solid 1px var(--black);
+    border-radius: 4px;
     padding:5px;
     resize: none;
+    color: var(--black);
 }
 .formButtons{
     margin-top:5px;
@@ -145,11 +146,14 @@ input[type=date]{
 .projectSubmitBtn,
 .listSubmitBtn
 {
-    background-color: rgba(46, 199, 46, 0.534);
+    background-color: var(--black);
+    color: var(--white);
 }
 .projectCancelBtn,
 .listCancelBtn{
-    background-color: rgba(190, 4, 4, 0.473);
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    color: var(--black);
 }
 
 
