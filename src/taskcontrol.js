@@ -10,7 +10,7 @@ const taskevents = () => {
 
     const submitBtn = document.getElementById("tasksubmitbtn");
     submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         // console.log(projectArray);
         // addProjectToArray();
     });

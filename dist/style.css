@@ -116,7 +116,6 @@ textarea,
 input[type=date]{
     width:100%;
     box-sizing: border-box;
-    font-family: 'Alata';
     font-size:1rem;
     background-color: white;
     border: solid 1px var(--black);

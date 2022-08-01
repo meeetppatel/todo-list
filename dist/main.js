@@ -22,7 +22,7 @@ const projectevents = () => {
 
     const submitBtn = document.getElementById("projectsubmitbtn");
     submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
         // console.log(projectArray);
         // addProjectToArray();
@@ -88,7 +88,7 @@ const taskevents = () => {
 
     const submitBtn = document.getElementById("tasksubmitbtn");
     submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         // console.log(projectArray);
         // addProjectToArray();
     });
