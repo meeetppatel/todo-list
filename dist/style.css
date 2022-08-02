@@ -46,7 +46,7 @@ main {
     background-color: var(--whit2);
     color: var(--black);
     min-height: 100vh;
-    width: 25vw;
+    width: 300px;
 }
 
 button,
@@ -77,11 +77,13 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-top: 30px;
+    padding-top: 5px;
     padding-bottom: 30px;
     width: 100%;
 }
-
+.textborder{
+    border-bottom: 1px solid var(--black);
+}
 .projects {
     display: flex;
     flex-direction: column;
@@ -110,6 +112,7 @@ button:hover {
     transition-delay: 1s;
     max-height: 500px;
     transition: max-height 0.8s ease-out, opacity 300ms ease-in-out;
+    
 }
 input[type=text],
 textarea,
@@ -162,19 +165,33 @@ input[type=date]{
     flex-direction: column;
     min-width:75vw;
     min-height: 100vh;
+    margin-left: 2.5vw;
+    align-items: center;
+    text-align: left;
+}
+#top-text{
+    width: 50vw;
+    text-align: left;
 }
 .tasks {
     padding-top: 20px;
     padding-bottom: 20px;
+    width: 50vw;
 }
 .task{
     padding: 20px;
     border: 1px solid var(--black);
     border-radius:5px;
+    width: 50vw;
 }
 
 #addtask {
     width: 200px;
+}
+#taskForm {
+    position: relative;
+    max-width: 400px;
+    min-width: 200px;
 }
 
 

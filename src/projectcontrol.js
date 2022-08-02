@@ -17,5 +17,23 @@ const projectevents = () => {
     });
 }
 
+// create project
+const createProject = (dataProject, name) => {
+    const taskList = [];
+    const taskNum = taskList.length;
+    return{
+        dataProject,
+        name,
+        taskList,
+        taskNum
+    }
+}
+
+const projectFormInput = (e) => {
+    let projectName = document.getElementById("projectInput").value;
+}
+
+
+
 
 export {projectevents}
