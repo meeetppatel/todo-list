@@ -29,6 +29,24 @@ const projectevents = () => {
     });
 }
 
+// create project
+const createProject = (dataProject, name) => {
+    const taskList = [];
+    const taskNum = taskList.length;
+    return{
+        dataProject,
+        name,
+        taskList,
+        taskNum
+    }
+}
+
+const projectFormInput = (e) => {
+    let projectName = document.getElementById("projectInput").value;
+}
+
+
+
 
 
 
@@ -38,32 +56,57 @@ const projectevents = () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "displayProject": () => (/* binding */ displayProject),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay)
 /* harmony export */ });
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 
 
+const formDisplay = () => {
+  const projectform = document.getElementById("projectForm");
+  const taskform = document.getElementById("taskForm");
+  const hideprojectForm = () => {
+    projectform.classList.add("hidden");
+  };
+  const hidetaskForm = () => {
+    taskform.classList.add("hidden");
+  };
+  const showprojectForm = () => {
+    projectform.classList.remove("hidden");
+    projectform.reset();
+  };
+  const showtaskForm = () => {
+    taskform.classList.remove("hidden");
+    taskform.reset();
+  };
+  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm };
+};
 
+const displaycontrollers = (projects) => {
+  let storage = (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projects);
+};
 
-const formDisplay = () =>{
-    const projectform = document.getElementById("projectForm");
-    const taskform = document.getElementById("taskForm");
-    const hideprojectForm = () =>{
-        projectform.classList.add("hidden");
-    }
-    const hidetaskForm = () =>{
-        taskform.classList.add("hidden");
-    }
-    const showprojectForm = () =>{
-        projectform.classList.remove("hidden");
-        projectform.reset();
-    }
-    const showtaskForm = () =>{
-        taskform.classList.remove("hidden");
-        taskform.reset();
-    }
+const displayProject = (projectName, id) => {
+  const projectList = document.querySelector(".project-list");
 
-    return{hideprojectForm,hidetaskForm,showprojectForm,showtaskForm};
-}
+  const project = document.createElement("div");
+  project.classList.add("project");
+  project.id = "projectTitle";
+  project.innerHTML = `<i class="fas fa-tasks"></i>${projectName}`;
+
+  const deletebtn = document.createElement("button");
+  deletebtn.id = "deletebtn";
+  deletebtn.classList.add("project-delbtn");
+  deletebtn.classList.add("fa-solid");
+  deletebtn.classList.add("fa-xmark");
+
+  project.dataset.id = id;
+  deletebtn.dataset.id = id;
+
+  project.appendChild(deletebtn);
+  projectList.appendChild(project);
+};
+
 
 
 
@@ -96,6 +139,21 @@ const taskevents = () => {
 
 
 
+
+
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "updateStorage": () => (/* binding */ updateStorage)
+/* harmony export */ });
+
+const updateStorage = (projects) => {
+    localStorage.setItem("projects", JSON.stringify(projects));
+}
 
 
 
@@ -162,11 +220,15 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
+
 
 
 
 (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.projectevents)();
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
+(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.displayProject)("hello",22);
+
 })();
 
 /******/ })()
