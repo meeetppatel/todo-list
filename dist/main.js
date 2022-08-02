@@ -7,9 +7,12 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "projectList": () => (/* binding */ projectList),
 /* harmony export */   "projectevents": () => (/* binding */ projectevents)
 /* harmony export */ });
 /* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+
 
 
 
@@ -23,7 +26,7 @@ const projectevents = () => {
     const submitBtn = document.getElementById("projectsubmitbtn");
     submitBtn.addEventListener("click", (e) => {
         // e.preventDefault();
-
+        projectFormInput(e);
         // console.log(projectArray);
         // addProjectToArray();
     });
@@ -41,9 +44,31 @@ const createProject = (dataProject, name) => {
     }
 }
 
+let projectList = [];
+// let projectList = localStorage.getItem("projects");
+// projectList = JSON.parse(projectList || JSON.stringify(defaultList));
+
 const projectFormInput = (e) => {
     let projectName = document.getElementById("projectInput").value;
+    let dataProject = nextDataId();
+    const newProject = createProject(dataProject,projectName);
+
+    projectList.push(newProject);
+    (0,_storage__WEBPACK_IMPORTED_MODULE_1__.updateStorage)(projectList);
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayProject)(projectName, dataProject);
+    e.preventDefault();
+
+
+    const deleteProjectBtn = document.querySelector("#deletebtn");
+    deleteProjectBtn.addEventListener("click", (e) => {
+        (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteProject)(e);
+    });
 }
+
+const nextDataId = () => {
+    const allprojects = document.querySelectorAll("[data-project]");
+    return allprojects.length;
+};
 
 
 
@@ -56,10 +81,13 @@ const projectFormInput = (e) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deleteProject": () => (/* binding */ deleteProject),
 /* harmony export */   "displayProject": () => (/* binding */ displayProject),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay)
 /* harmony export */ });
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+
 
 
 const formDisplay = () => {
@@ -97,8 +125,8 @@ const displayProject = (projectName, id) => {
   const deletebtn = document.createElement("button");
   deletebtn.id = "deletebtn";
   deletebtn.classList.add("project-delbtn");
-  deletebtn.classList.add("fa-solid");
-  deletebtn.classList.add("fa-xmark");
+  deletebtn.classList.add("fas");
+  deletebtn.classList.add("fa-times");
 
   project.dataset.id = id;
   deletebtn.dataset.id = id;
@@ -106,12 +134,45 @@ const displayProject = (projectName, id) => {
   project.appendChild(deletebtn);
   projectList.appendChild(project);
 };
+const deleteProject = (e) => {
+  let tile = e.target.getAttribute("data-id");
+  // const tile = document.querySelector(`[data-project="${index}"]`);
+
+  // if (tile.classList.contains("selected")) {
+  //   //if the tile you want to delete is selected always select the today tile after and update
+  //   const today = document.querySelector("#today");
+  //   const nameNode = today.querySelector("[data-name]");
+  //   today.classList.add("selected");
+  //   updateTitle(nameNode);
+  // }
+
+  // revertOptionLocation(e); //when delete a tile, move option div back to under project for stand by
+  // tile.remove();
+  // sortArray();
+  _projectcontrol__WEBPACK_IMPORTED_MODULE_1__.projectList.splice(tile, 1);
+  // saveToLocalStorage();
+};
 
 
 
 
 /***/ }),
 /* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "updateStorage": () => (/* binding */ updateStorage)
+/* harmony export */ });
+
+const updateStorage = (projectList) => {
+    localStorage.setItem("projects", JSON.stringify(projectList));
+}
+
+
+
+/***/ }),
+/* 4 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -137,23 +198,6 @@ const taskevents = () => {
     });
 }
 
-
-
-
-
-
-/***/ }),
-/* 4 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "updateStorage": () => (/* binding */ updateStorage)
-/* harmony export */ });
-
-const updateStorage = (projects) => {
-    localStorage.setItem("projects", JSON.stringify(projects));
-}
 
 
 
@@ -219,15 +263,17 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
+
 
 
 
 
 (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.projectevents)();
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
-(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.displayProject)("hello",22);
+
+// displayProject("hello",22);
 
 })();
 

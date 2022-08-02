@@ -1,4 +1,5 @@
-import { formDisplay } from "./displaycontrol";
+import { formDisplay, displayProject, deleteProject } from "./displaycontrol";
+import { updateStorage } from "./storage";
 
 
 const projectevents = () => {
@@ -11,7 +12,7 @@ const projectevents = () => {
     const submitBtn = document.getElementById("projectsubmitbtn");
     submitBtn.addEventListener("click", (e) => {
         // e.preventDefault();
-
+        projectFormInput(e);
         // console.log(projectArray);
         // addProjectToArray();
     });
@@ -29,11 +30,33 @@ const createProject = (dataProject, name) => {
     }
 }
 
+let projectList = [];
+// let projectList = localStorage.getItem("projects");
+// projectList = JSON.parse(projectList || JSON.stringify(defaultList));
+
 const projectFormInput = (e) => {
     let projectName = document.getElementById("projectInput").value;
+    let dataProject = nextDataId();
+    const newProject = createProject(dataProject,projectName);
+
+    projectList.push(newProject);
+    updateStorage(projectList);
+    displayProject(projectName, dataProject);
+    e.preventDefault();
+
+
+    const deleteProjectBtn = document.querySelector("#deletebtn");
+    deleteProjectBtn.addEventListener("click", (e) => {
+        deleteProject(e);
+    });
 }
 
+const nextDataId = () => {
+    const allprojects = document.querySelectorAll("[data-project]");
+    return allprojects.length;
+};
 
 
 
-export {projectevents}
+
+export {projectevents, projectList}

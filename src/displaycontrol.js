@@ -1,4 +1,5 @@
 import { updateStorage } from "./storage";
+import { projectList } from "./projectcontrol";
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
@@ -35,8 +36,8 @@ const displayProject = (projectName, id) => {
   const deletebtn = document.createElement("button");
   deletebtn.id = "deletebtn";
   deletebtn.classList.add("project-delbtn");
-  deletebtn.classList.add("fa-solid");
-  deletebtn.classList.add("fa-xmark");
+  deletebtn.classList.add("fas");
+  deletebtn.classList.add("fa-times");
 
   project.dataset.id = id;
   deletebtn.dataset.id = id;
@@ -44,5 +45,23 @@ const displayProject = (projectName, id) => {
   project.appendChild(deletebtn);
   projectList.appendChild(project);
 };
+const deleteProject = (e) => {
+  let tile = e.target.getAttribute("data-id");
+  // const tile = document.querySelector(`[data-project="${index}"]`);
 
-export { formDisplay, displayProject };
+  // if (tile.classList.contains("selected")) {
+  //   //if the tile you want to delete is selected always select the today tile after and update
+  //   const today = document.querySelector("#today");
+  //   const nameNode = today.querySelector("[data-name]");
+  //   today.classList.add("selected");
+  //   updateTitle(nameNode);
+  // }
+
+  // revertOptionLocation(e); //when delete a tile, move option div back to under project for stand by
+  // tile.remove();
+  // sortArray();
+  projectList.splice(tile, 1);
+  // saveToLocalStorage();
+};
+
+export { formDisplay, displayProject, deleteProject };

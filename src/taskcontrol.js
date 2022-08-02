@@ -15,7 +15,5 @@ const taskevents = () => {
         // addProjectToArray();
     });
 }
-
-
 export {taskevents}
 
