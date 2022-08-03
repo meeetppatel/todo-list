@@ -1,5 +1,6 @@
 import { formDisplay, displayProject, deleteProject } from "./displaycontrol";
 import { updateStorage } from "./storage";
+import { projectList } from "./displaycontrol";
 
 
 const projectevents = () => {
@@ -11,7 +12,7 @@ const projectevents = () => {
 
     const submitBtn = document.getElementById("projectsubmitbtn");
     submitBtn.addEventListener("click", (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         projectFormInput(e);
         // console.log(projectArray);
         // addProjectToArray();
@@ -30,11 +31,11 @@ const createProject = (dataProject, name) => {
     }
 }
 
-let projectList = [];
+
 // let projectList = localStorage.getItem("projects");
 // projectList = JSON.parse(projectList || JSON.stringify(defaultList));
 
-const projectFormInput = (e) => {
+const projectFormInput = () => {
     let projectName = document.getElementById("projectInput").value;
     let dataProject = nextDataId();
     const newProject = createProject(dataProject,projectName);
@@ -42,13 +43,16 @@ const projectFormInput = (e) => {
     projectList.push(newProject);
     updateStorage(projectList);
     displayProject(projectName, dataProject);
-    e.preventDefault();
+    formDisplay().hideprojectForm(); 
+
+    // e.preventDefault();
 
 
-    const deleteProjectBtn = document.querySelector("#deletebtn");
-    deleteProjectBtn.addEventListener("click", (e) => {
-        deleteProject(e);
-    });
+
+    // const deleteProjectBtn = document.querySelector("#deletebtn");
+    // deleteProjectBtn.addEventListener("click", (e) => {
+    //     deleteProject(e);
+    // });
 }
 
 const nextDataId = () => {
@@ -59,4 +63,4 @@ const nextDataId = () => {
 
 
 
-export {projectevents, projectList}
+export {projectevents}

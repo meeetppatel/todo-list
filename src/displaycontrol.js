@@ -1,5 +1,7 @@
 import { updateStorage } from "./storage";
-import { projectList } from "./projectcontrol";
+
+
+let projectList = [];
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
@@ -64,4 +66,4 @@ const deleteProject = (e) => {
   // saveToLocalStorage();
 };
 
-export { formDisplay, displayProject, deleteProject };
+export { formDisplay, displayProject, deleteProject , projectList};
