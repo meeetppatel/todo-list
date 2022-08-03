@@ -1,6 +1,5 @@
 import { updateStorage } from "./storage";
 
-
 let projectList = [];
 
 const formDisplay = () => {
@@ -66,4 +65,61 @@ const deleteProject = (e) => {
   // saveToLocalStorage();
 };
 
-export { formDisplay, displayProject, deleteProject , projectList};
+const displayTask = (title, details, date, taskID, checkbox) => {
+
+  const tasks = document.querySelector(".tasks");
+
+  const taskdiv = document.createElement("div");
+  taskdiv.classList.add("task");
+
+  const checkBox = document.createElement("div");
+  checkBox.classList.add("checkbox");
+  const check = document.createElement("input");
+  check.id = "check";
+  check.type= "checkbox";
+  check.checked = checkbox;
+  checkBox.appendChild(check);
+
+  const taskdetails = document.createElement("div");
+  taskdetails.classList.add("task-info");
+  
+  const taskTitle = document.createElement("div");
+  taskTitle.classList.add("task-title");
+  taskTitle.textContent = title;
+
+  const info = document.createElement("div");
+  info.classList.add("task-details");
+  info.textContent = details;
+
+  taskdetails.appendChild(taskTitle);
+  taskdetails.appendChild(info);
+
+  const end = document.createElement("div");
+  end.classList.add("task-end");
+
+  const taskDate = document.createElement("input");
+  taskDate.id = "task-date";
+  taskDate.type = "date";
+  taskDate.value = date;
+  taskDate.readOnly = true;
+  
+  const deleteTaskBtn = document.createElement("button");
+  deleteTaskBtn.id = "deleteTask";
+  deleteTaskBtn.classList.add("fas");
+  deleteTaskBtn.classList.add("fa-times");
+
+  end.appendChild(taskDate);
+  end.appendChild(deleteTaskBtn);
+
+
+  taskdiv.dataset.task = taskID;
+
+  taskdiv.appendChild(checkBox);
+  taskdiv.appendChild(taskdetails);
+  taskdiv.appendChild(end);
+
+
+  tasks.appendChild(taskdiv);
+};
+
+export { formDisplay, displayProject, deleteProject, projectList, displayTask };
