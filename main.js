@@ -34,7 +34,7 @@ const projectevents = () => {
 
 // create project
 const createProject = (dataProject, name) => {
-    const taskList = [];
+    let taskList = [];
     const taskNum = taskList.length;
     return{
         dataProject,
@@ -45,16 +45,13 @@ const createProject = (dataProject, name) => {
 }
 
 
-// let projectList = localStorage.getItem("projects");
-// projectList = JSON.parse(projectList || JSON.stringify(defaultList));
-
 const projectFormInput = () => {
     let projectName = document.getElementById("projectInput").value;
     let dataProject = nextDataId();
     const newProject = createProject(dataProject,projectName);
 
     _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList.push(newProject);
-    (0,_storage__WEBPACK_IMPORTED_MODULE_1__.updateStorage)(_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList);
+    // updateStorage(projectList);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayProject)(projectName, dataProject);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm(); 
 
@@ -75,6 +72,23 @@ const nextDataId = () => {
 
 
 
+const checkproject = (e) => {
+    let check = e.target.id;
+
+    
+}
+
+
+
+
+
+const selectTile = (project) => {
+    const selectedTile = document.querySelector(".selected");   
+    selectedTile.classList.remove("selected");                  //remove class selected from old tile
+
+    project.classList.add("selected"); 
+}
+
 
 
 
@@ -86,11 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "deleteProject": () => (/* binding */ deleteProject),
 /* harmony export */   "displayProject": () => (/* binding */ displayProject),
+/* harmony export */   "displayTask": () => (/* binding */ displayTask),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay),
 /* harmony export */   "projectList": () => (/* binding */ projectList)
 /* harmony export */ });
 /* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-
 
 
 let projectList = [];
@@ -123,6 +137,7 @@ const displayProject = (projectName, id) => {
   const projectList = document.querySelector(".project-list");
 
   const project = document.createElement("div");
+  project.setAttribute("data-project", `id`);
   project.classList.add("project");
   project.id = "projectTitle";
   project.innerHTML = `<i class="fas fa-tasks"></i>${projectName}`;
@@ -134,6 +149,8 @@ const displayProject = (projectName, id) => {
   deletebtn.classList.add("fa-times");
 
   project.dataset.id = id;
+  console.log(id)
+
   deletebtn.dataset.id = id;
 
   project.appendChild(deletebtn);
@@ -157,6 +174,68 @@ const deleteProject = (e) => {
   projectList.splice(tile, 1);
   // saveToLocalStorage();
 };
+
+const displayTask = (title, details, date, taskID, checkbox) => {
+
+  const tasks = document.querySelector(".tasks");
+
+  const taskdiv = document.createElement("div");
+  taskdiv.classList.add("task");
+
+  const checkBox = document.createElement("div");
+  checkBox.classList.add("checkbox");
+  const check = document.createElement("input");
+  check.id = "check";
+  check.type= "checkbox";
+  check.checked = checkbox;
+  checkBox.appendChild(check);
+
+  const taskdetails = document.createElement("div");
+  taskdetails.classList.add("task-info");
+  
+  const taskTitle = document.createElement("div");
+  taskTitle.classList.add("task-title");
+  taskTitle.textContent = title;
+
+  const info = document.createElement("div");
+  info.classList.add("task-details");
+  info.textContent = details;
+
+  taskdetails.appendChild(taskTitle);
+  taskdetails.appendChild(info);
+
+  const end = document.createElement("div");
+  end.classList.add("task-end");
+
+  const taskDate = document.createElement("input");
+  taskDate.id = "task-date";
+  taskDate.type = "date";
+  taskDate.value = date;
+  taskDate.readOnly = true;
+  
+  const deleteTaskBtn = document.createElement("button");
+  deleteTaskBtn.id = "deleteTask";
+  deleteTaskBtn.classList.add("fas");
+  deleteTaskBtn.classList.add("fa-times");
+
+  end.appendChild(taskDate);
+  end.appendChild(deleteTaskBtn);
+
+
+  taskdiv.dataset.task = taskID;
+  console.log(taskID);
+
+  taskdiv.appendChild(checkBox);
+  taskdiv.appendChild(taskdetails);
+  taskdiv.appendChild(end);
+
+
+  tasks.appendChild(taskdiv);
+};
+
+
+
+
 
 
 
@@ -190,23 +269,67 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 const taskevents = () => {
-    const addtaskBtn = document.getElementById("addtask");
-    addtaskBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showtaskForm);
+  const addtaskBtn = document.getElementById("addtask");
+  addtaskBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showtaskForm);
 
-    const cancelBtn = document.getElementById("taskcancelbtn");
-    cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm);
+  const cancelBtn = document.getElementById("taskcancelbtn");
+  cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm);
 
-    const submitBtn = document.getElementById("tasksubmitbtn");
-    submitBtn.addEventListener("click", (e) => {
-        // e.preventDefault();
-        // console.log(projectArray);
-        // addProjectToArray();
-    });
-}
+  const submitBtn = document.getElementById("tasksubmitbtn");
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    taskFormInput();
+    // console.log(projectArray);
+    // addProjectToArray();
+  });
+};
+
+const createTask = (title, details, date, id, projectID, checkbox) => {
+  const changecheckboxstatus = () => {
+    undefined.checkbox != undefined.checkbox;
+  };
+  return {
+    checkbox: checkbox,
+    title,
+    details,
+    date,
+    id,
+    projectID,
+    changecheckboxstatus,
+  };
+};
+
+const taskFormInput = () => {
+  const title = document.getElementById("listInput").value;
+  const details = document.getElementById("listInputDetail").value;
+  const date = document.getElementById("listInputDate").value;
+  const dataId = getDataID();
+  const taskID = newTaskID();
+  let checkbox = false;
+
+  const newtask = createTask(title, details, date, taskID, dataId, false);
+
+  console.log(newtask);
+
+  _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[dataId].taskList.push(newtask);
+  // updateStorage(projectList);
+  (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayTask)(title, details, date, taskID, checkbox);
+};
+
+
+
+const getDataID = () => {
+  const selectedProject = document.querySelector(".selected");
+  // console.log(selectedProject.dataset.project);
+  return 0;
+};
+
+const newTaskID = () => {
+  let id = _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[getDataID()].taskList.length;
+  console.log(id);
+  return id;
+};
 
 
 
@@ -284,6 +407,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
 
 // displayProject("hello",22);
+// displayTask("hello", "details", "2022-08-07", 0, false);
 
 })();
 

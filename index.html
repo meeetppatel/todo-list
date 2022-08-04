@@ -36,8 +36,7 @@
             <h1 class="textborder">Projects</h1>
             <div class="projects">
                 <div class="project-list">
-                    <button class="project"><i class="fas fa-tasks"></i>project1</button>
-                    <button class="project"><i class="fas fa-tasks"></i>project2</button>
+
                 </div>
 
                 <form id="projectForm" class="hidden" autocomplete="off">
@@ -61,19 +60,18 @@
         <div id="right" class="right">
             <h1 id="top-text">Inbox</h1>
             <div class="tasks" id="tasks">
-                <div class="task">
-                    <p>lorem ipsum dolor sit amet,</p>
-                </div>
+                
             </div>
 
             <form id="taskForm" class="hidden" autocomplete="off">
                 <div class="inputField">
                     <label>Title:</label>
-                    <input type="text" id="listInput" placeholder="What to do?">
+                    <input type="text" id="listInput" placeholder="What to do?" required>
                     <label>Details(optional):</label>
-                    <textarea type="text" id="listInputDetail" placeholder="eg: I'm just gonna procrastinate, aren't I?" wrap="hard"></textarea>
-                    <label>Date:</label>
-                    <input type="date" id="listInputDate" >
+                    <textarea type="text" id="listInputDetail" placeholder="eg: I'm just gonna procrastinate, aren't I?"
+                        wrap="hard"></textarea>
+                    <label for="Date">Date:</label>
+                    <input type="date" id="listInputDate" name="Date" required>
                     <div class="formButtons">
                         <input type="submit" id="tasksubmitbtn" class="listSubmitBtn" value="Add">
                         <input type="button" id="taskcancelbtn" class="listCancelBtn" value="Cancel">
