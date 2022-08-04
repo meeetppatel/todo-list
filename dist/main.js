@@ -274,7 +274,7 @@ const clearContent = () => {
 }
 
 const getTask = (data) => {
-  console.log(" displayTask is called");
+  console.log(" getTask is called");
   clearContent();
 
   projectList[data].taskList.forEach((task) => {
