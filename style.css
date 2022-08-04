@@ -69,8 +69,9 @@ i{
     margin-right: 10px;
 }
 
-button:hover {
+button:hover,.project:hover {
     background-color: rgba(0, 0, 0, 0.06);
+    cursor: pointer;
 }
 
 .top {

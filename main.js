@@ -14,80 +14,94 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 const projectevents = () => {
-    const addProjectBtn = document.getElementById("addproject");
-    addProjectBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showprojectForm);
+  const addProjectBtn = document.getElementById("addproject");
+  addProjectBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showprojectForm);
 
-    const cancelBtn = document.getElementById("projectcancelbtn");
-    cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm);
+  const cancelBtn = document.getElementById("projectcancelbtn");
+  cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm);
 
-    const submitBtn = document.getElementById("projectsubmitbtn");
-    submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        projectFormInput(e);
-        // console.log(projectArray);
-        // addProjectToArray();
-    });
-}
+  const submitBtn = document.getElementById("projectsubmitbtn");
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    projectFormInput(e);
+    // console.log(projectArray);
+    // addProjectToArray();
+  });
+
+  const projects = document.querySelector(".projects");
+  projects.addEventListener("click", (e) => {
+    checkproject(e);
+  });
+
+  const defaultview = document.querySelector(".top");
+  defaultview.addEventListener("click", (e) => {
+    checkproject(e);
+  });
+};
 
 // create project
 const createProject = (dataProject, name) => {
-    let taskList = [];
-    const taskNum = taskList.length;
-    return{
-        dataProject,
-        name,
-        taskList,
-        taskNum
-    }
-}
-
-
-const projectFormInput = () => {
-    let projectName = document.getElementById("projectInput").value;
-    let dataProject = nextDataId();
-    const newProject = createProject(dataProject,projectName);
-
-    _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList.push(newProject);
-    // updateStorage(projectList);
-    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayProject)(projectName, dataProject);
-    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm(); 
-
-    // e.preventDefault();
-
-
-
-    // const deleteProjectBtn = document.querySelector("#deletebtn");
-    // deleteProjectBtn.addEventListener("click", (e) => {
-    //     deleteProject(e);
-    // });
-}
-
-const nextDataId = () => {
-    const allprojects = document.querySelectorAll("[data-project]");
-    return allprojects.length;
+  let taskList = [];
+  const taskNum = taskList.length;
+  return {
+    dataProject,
+    name,
+    taskList,
+    taskNum,
+  };
 };
 
+const projectFormInput = () => {
+  let projectName = document.getElementById("projectInput").value;
+  let dataProject = nextDataId();
+  const newProject = createProject(dataProject, projectName);
 
+  _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList.push(newProject);
+  // updateStorage(projectList);
+  (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayProject)(projectName, dataProject);
+  (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm();
+
+  // e.preventDefault();
+
+  // const deleteProjectBtn = document.querySelector("#deletebtn");
+  // deleteProjectBtn.addEventListener("click", (e) => {
+  //     deleteProject(e);
+  // });
+};
+
+const nextDataId = () => {
+  const allprojects = document.querySelectorAll("[data-project]");
+  return allprojects.length;
+};
 
 const checkproject = (e) => {
-    let check = e.target.id;
+  let check = e.target.id;
 
-    
-}
-
-
-
-
+  if (check === "projectTitle") {
+    selectTile(e.target);
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
+    console.log(e.target.getAttribute("data-project"))
+    ;(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.getTask)(e.target.getAttribute("data-project"));
+  }
+  if (check === "inbox") {
+    selectTile(e.target);
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.allTask)();
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
+  }
+  // if(check === "deleteButton"){
+  //     deleteProject(e.target.getAttribute("data-id"));
+  // }
+};
 
 const selectTile = (project) => {
-    const selectedTile = document.querySelector(".selected");   
-    selectedTile.classList.remove("selected");                  //remove class selected from old tile
-
-    project.classList.add("selected"); 
-}
+  if (document.querySelector(".selected") != null) {
+    const oldTile = document.querySelector(".selected");
+    oldTile.classList.remove("selected");
+  }
+  project.classList.add("selected");
+};
 
 
 
@@ -98,11 +112,15 @@ const selectTile = (project) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "allTask": () => (/* binding */ allTask),
+/* harmony export */   "clearContent": () => (/* binding */ clearContent),
 /* harmony export */   "deleteProject": () => (/* binding */ deleteProject),
 /* harmony export */   "displayProject": () => (/* binding */ displayProject),
 /* harmony export */   "displayTask": () => (/* binding */ displayTask),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay),
-/* harmony export */   "projectList": () => (/* binding */ projectList)
+/* harmony export */   "getTask": () => (/* binding */ getTask),
+/* harmony export */   "projectList": () => (/* binding */ projectList),
+/* harmony export */   "updateHeader": () => (/* binding */ updateHeader)
 /* harmony export */ });
 /* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
@@ -133,11 +151,29 @@ const displaycontrollers = (projects) => {
   let storage = (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projects);
 };
 
+const allTask = () => {
+  clearContent();
+  projectList.forEach((project) => {
+    project.taskList.forEach((task) => {
+      displayTask(
+        task.title,
+        task.details,
+        task.date,
+        task.id,
+        task.checkbox
+      );
+    });
+  });
+
+  // deleteBtnDisable();
+};
+
+
 const displayProject = (projectName, id) => {
   const projectList = document.querySelector(".project-list");
 
   const project = document.createElement("div");
-  project.setAttribute("data-project", `id`);
+  project.setAttribute("data-project", `${id}`);
   project.classList.add("project");
   project.id = "projectTitle";
   project.innerHTML = `<i class="fas fa-tasks"></i>${projectName}`;
@@ -233,9 +269,28 @@ const displayTask = (title, details, date, taskID, checkbox) => {
   tasks.appendChild(taskdiv);
 };
 
+const clearContent = () => {
+  document.querySelector(".tasks").innerHTML="";
+}
 
+const getTask = (data) => {
+  console.log(" displayTask is called");
+  clearContent();
 
-
+  projectList[data].taskList.forEach((task) => {
+    displayTask(
+      task.title,
+      task.details,
+      task.date,
+      task.id,
+      task.checkbox
+    );
+  });
+};
+const updateHeader = (title) => {
+  const header = document.getElementById("top-text");
+  header.textContent = title;
+}
 
 
 
@@ -280,6 +335,7 @@ const taskevents = () => {
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     taskFormInput();
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
     // console.log(projectArray);
     // addProjectToArray();
   });
@@ -322,7 +378,7 @@ const taskFormInput = () => {
 const getDataID = () => {
   const selectedProject = document.querySelector(".selected");
   // console.log(selectedProject.dataset.project);
-  return 0;
+  return selectedProject.dataset.project;
 };
 
 const newTaskID = () => {
