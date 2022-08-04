@@ -26,11 +26,29 @@ const displaycontrollers = (projects) => {
   let storage = updateStorage(projects);
 };
 
+const allTask = () => {
+  clearContent();
+  projectList.forEach((project) => {
+    project.taskList.forEach((task) => {
+      displayTask(
+        task.title,
+        task.details,
+        task.date,
+        task.id,
+        task.checkbox
+      );
+    });
+  });
+
+  // deleteBtnDisable();
+};
+
+
 const displayProject = (projectName, id) => {
   const projectList = document.querySelector(".project-list");
 
   const project = document.createElement("div");
-  project.setAttribute("data-project", `id`);
+  project.setAttribute("data-project", `${id}`);
   project.classList.add("project");
   project.id = "projectTitle";
   project.innerHTML = `<i class="fas fa-tasks"></i>${projectName}`;
@@ -126,8 +144,27 @@ const displayTask = (title, details, date, taskID, checkbox) => {
   tasks.appendChild(taskdiv);
 };
 
+const clearContent = () => {
+  document.querySelector(".tasks").innerHTML="";
+}
 
+const getTask = (data) => {
+  console.log(" displayTask is called");
+  clearContent();
 
+  projectList[data].taskList.forEach((task) => {
+    displayTask(
+      task.title,
+      task.details,
+      task.date,
+      task.id,
+      task.checkbox
+    );
+  });
+};
+const updateHeader = (title) => {
+  const header = document.getElementById("top-text");
+  header.textContent = title;
+}
 
-
-export { formDisplay, displayProject, deleteProject, projectList, displayTask };
+export { formDisplay, displayProject, deleteProject, projectList, displayTask , getTask, updateHeader, clearContent, allTask};

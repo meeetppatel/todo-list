@@ -13,6 +13,7 @@ const taskevents = () => {
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     taskFormInput();
+    formDisplay().hidetaskForm();
     // console.log(projectArray);
     // addProjectToArray();
   });
@@ -55,7 +56,7 @@ const taskFormInput = () => {
 const getDataID = () => {
   const selectedProject = document.querySelector(".selected");
   // console.log(selectedProject.dataset.project);
-  return 0;
+  return selectedProject.dataset.project;
 };
 
 const newTaskID = () => {
