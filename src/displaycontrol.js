@@ -30,6 +30,7 @@ const displayProject = (projectName, id) => {
   const projectList = document.querySelector(".project-list");
 
   const project = document.createElement("div");
+  project.setAttribute("data-project", `id`);
   project.classList.add("project");
   project.id = "projectTitle";
   project.innerHTML = `<i class="fas fa-tasks"></i>${projectName}`;
@@ -41,6 +42,8 @@ const displayProject = (projectName, id) => {
   deletebtn.classList.add("fa-times");
 
   project.dataset.id = id;
+  console.log(id)
+
   deletebtn.dataset.id = id;
 
   project.appendChild(deletebtn);
@@ -113,6 +116,7 @@ const displayTask = (title, details, date, taskID, checkbox) => {
 
 
   taskdiv.dataset.task = taskID;
+  console.log(taskID);
 
   taskdiv.appendChild(checkBox);
   taskdiv.appendChild(taskdetails);
@@ -121,5 +125,9 @@ const displayTask = (title, details, date, taskID, checkbox) => {
 
   tasks.appendChild(taskdiv);
 };
+
+
+
+
 
 export { formDisplay, displayProject, deleteProject, projectList, displayTask };

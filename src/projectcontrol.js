@@ -21,7 +21,7 @@ const projectevents = () => {
 
 // create project
 const createProject = (dataProject, name) => {
-    const taskList = [];
+    let taskList = [];
     const taskNum = taskList.length;
     return{
         dataProject,
@@ -32,16 +32,13 @@ const createProject = (dataProject, name) => {
 }
 
 
-// let projectList = localStorage.getItem("projects");
-// projectList = JSON.parse(projectList || JSON.stringify(defaultList));
-
 const projectFormInput = () => {
     let projectName = document.getElementById("projectInput").value;
     let dataProject = nextDataId();
     const newProject = createProject(dataProject,projectName);
 
     projectList.push(newProject);
-    updateStorage(projectList);
+    // updateStorage(projectList);
     displayProject(projectName, dataProject);
     formDisplay().hideprojectForm(); 
 
@@ -61,6 +58,23 @@ const nextDataId = () => {
 };
 
 
+
+const checkproject = (e) => {
+    let check = e.target.id;
+
+    
+}
+
+
+
+
+
+const selectTile = (project) => {
+    const selectedTile = document.querySelector(".selected");   
+    selectedTile.classList.remove("selected");                  //remove class selected from old tile
+
+    project.classList.add("selected"); 
+}
 
 
 export {projectevents}
