@@ -25,8 +25,6 @@ const projectevents = () => {
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     projectFormInput(e);
-    // console.log(projectArray);
-    // addProjectToArray();
   });
 
   const projects = document.querySelector(".projects");
@@ -90,9 +88,9 @@ const checkproject = (e) => {
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
   }
-  // if(check === "deleteButton"){
-  //     deleteProject(e.target.getAttribute("data-id"));
-  // }
+  if(check === "deletebtn"){
+      (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteProject)(e.target.dataset.id);
+  }
 };
 
 const selectTile = (project) => {
@@ -118,6 +116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "displayProject": () => (/* binding */ displayProject),
 /* harmony export */   "displayTask": () => (/* binding */ displayTask),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay),
+/* harmony export */   "getProjects": () => (/* binding */ getProjects),
 /* harmony export */   "getTask": () => (/* binding */ getTask),
 /* harmony export */   "projectList": () => (/* binding */ projectList),
 /* harmony export */   "updateHeader": () => (/* binding */ updateHeader)
@@ -191,24 +190,6 @@ const displayProject = (projectName, id) => {
 
   project.appendChild(deletebtn);
   projectList.appendChild(project);
-};
-const deleteProject = (e) => {
-  let tile = e.target.getAttribute("data-id");
-  // const tile = document.querySelector(`[data-project="${index}"]`);
-
-  // if (tile.classList.contains("selected")) {
-  //   //if the tile you want to delete is selected always select the today tile after and update
-  //   const today = document.querySelector("#today");
-  //   const nameNode = today.querySelector("[data-name]");
-  //   today.classList.add("selected");
-  //   updateTitle(nameNode);
-  // }
-
-  // revertOptionLocation(e); //when delete a tile, move option div back to under project for stand by
-  // tile.remove();
-  // sortArray();
-  projectList.splice(tile, 1);
-  // saveToLocalStorage();
 };
 
 const displayTask = (title, details, date, taskID, checkbox) => {
@@ -287,10 +268,38 @@ const getTask = (data) => {
     );
   });
 };
+
+const getProjects = (projects) => {
+  document.querySelector(".project-list").replaceChildren();
+  projects.forEach((project) =>{
+    if(project != null) {
+      displayProject(project.name, project.dataProject)
+    }
+  });
+};
+
 const updateHeader = (title) => {
   const header = document.getElementById("top-text");
   header.textContent = title;
 }
+
+const deleteProject = (id) => {
+  projectList.splice(id,1);
+  sortArray();
+  getProjects(projectList);
+
+}
+
+const sortArray = () => {
+  let i=0;
+  projectList.forEach((project) =>{
+    project.dataProject=i;
+    i++;
+  });
+  projectList.sort((a,b) => a.dataProject - b.dataProject);
+  // updateStorage(projectList);
+}
+
 
 
 

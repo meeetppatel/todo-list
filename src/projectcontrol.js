@@ -6,6 +6,7 @@ import {
   updateHeader,
   projectList,
   allTask,
+  getProjects
 } from "./displaycontrol";
 import { updateStorage } from "./storage";
 
@@ -20,8 +21,6 @@ const projectevents = () => {
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     projectFormInput(e);
-    // console.log(projectArray);
-    // addProjectToArray();
   });
 
   const projects = document.querySelector(".projects");
@@ -85,9 +84,9 @@ const checkproject = (e) => {
     updateHeader(e.target.textContent);
     formDisplay().hidetaskForm();
   }
-  // if(check === "deleteButton"){
-  //     deleteProject(e.target.getAttribute("data-id"));
-  // }
+  if(check === "deletebtn"){
+      deleteProject(e.target.dataset.id);
+  }
 };
 
 const selectTile = (project) => {
