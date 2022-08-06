@@ -9,8 +9,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "projectevents": () => (/* binding */ projectevents)
 /* harmony export */ });
-/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 
 
 
@@ -79,18 +79,23 @@ const checkproject = (e) => {
   if (check === "projectTitle") {
     selectTile(e.target);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
-    console.log(e.target.getAttribute("data-project"))
-    ;(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.getTask)(e.target.getAttribute("data-project"));
+    console.log(e.target.getAttribute("data-project"));
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.getTask)(e.target.getAttribute("data-project"));
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showaddtaskbtn();
   }
   if (check === "inbox") {
     selectTile(e.target);
+    console.log(e.target);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.allTask)();
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideaddtaskbtn();
   }
-  if(check === "deletebtn"){
-      (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteProject)(e.target.dataset.id);
+  if (check === "deletebtn") {
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteProject)(e.target.dataset.id);
+    document.getElementById("inbox").classList.add("selected");
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)("Inbox");
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.allTask)();
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideaddtaskbtn();
   }
 };
 
@@ -111,6 +116,93 @@ const selectTile = (project) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "taskevents": () => (/* binding */ taskevents)
+/* harmony export */ });
+/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+
+
+
+
+const taskevents = () => {
+  const addtaskBtn = document.getElementById("addtask");
+  addtaskBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showtaskForm);
+
+  const cancelBtn = document.getElementById("taskcancelbtn");
+  cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm);
+
+  const submitBtn = document.getElementById("tasksubmitbtn");
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    taskFormInput();
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
+
+  });
+  const taskdiv = document.querySelector(".tasks");
+  taskdiv.addEventListener("click", (e) => {
+    checktasks(e);
+  });
+};
+
+const createTask = (title, details, date, id, projectID, checkbox) => {
+  const changecheckboxstatus = () => {
+    undefined.checkbox != undefined.checkbox;
+  };
+  return {
+    checkbox: checkbox,
+    title,
+    details,
+    date,
+    id,
+    projectID,
+    changecheckboxstatus,
+  };
+};
+
+const taskFormInput = () => {
+  const title = document.getElementById("listInput").value;
+  const details = document.getElementById("listInputDetail").value;
+  const date = document.getElementById("listInputDate").value;
+  const dataId = getDataID();
+  const taskID = newTaskID();
+  let checkbox = false;
+
+  const newtask = createTask(title, details, date, taskID, dataId, false);
+
+  console.log(newtask);
+
+  _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[dataId].taskList.push(newtask);
+  // updateStorage(projectList);
+  (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayTask)(title, details, date, taskID, checkbox);
+};
+
+const getDataID = () => {
+  const selectedProject = document.querySelector(".selected");
+  return selectedProject.dataset.project;
+};
+const newTaskID = () => {
+  let id = _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[getDataID()].taskList.length;
+  console.log(id);
+  return id;
+};
+
+
+const checktasks = (e) => {
+  console.log(e.target.id)
+  if(e.target.id === "deleteTask"){
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteTask)(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
+  }
+}
+
+
+
+
+/***/ }),
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "allTask": () => (/* binding */ allTask),
 /* harmony export */   "clearContent": () => (/* binding */ clearContent),
 /* harmony export */   "deleteProject": () => (/* binding */ deleteProject),
@@ -123,7 +215,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "projectList": () => (/* binding */ projectList),
 /* harmony export */   "updateHeader": () => (/* binding */ updateHeader)
 /* harmony export */ });
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 
 
 let projectList = [];
@@ -293,7 +385,6 @@ const deleteProject = (id) => {
   projectList.splice(id,1);
   sortArray();
   getProjects(projectList);
-
 }
 
 const deleteTask = (projectid, taskid) => {
@@ -325,7 +416,7 @@ const sorttasks = (projectid) => {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -336,93 +427,6 @@ __webpack_require__.r(__webpack_exports__);
 const updateStorage = (projectList) => {
     localStorage.setItem("projects", JSON.stringify(projectList));
 }
-
-
-
-/***/ }),
-/* 4 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "taskevents": () => (/* binding */ taskevents)
-/* harmony export */ });
-/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-
-
-
-
-const taskevents = () => {
-  const addtaskBtn = document.getElementById("addtask");
-  addtaskBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showtaskForm);
-
-  const cancelBtn = document.getElementById("taskcancelbtn");
-  cancelBtn.addEventListener("click", (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm);
-
-  const submitBtn = document.getElementById("tasksubmitbtn");
-  submitBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    taskFormInput();
-    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
-
-  });
-  const taskdiv = document.querySelector(".tasks");
-  taskdiv.addEventListener("click", (e) => {
-    checktasks(e);
-  });
-};
-
-const createTask = (title, details, date, id, projectID, checkbox) => {
-  const changecheckboxstatus = () => {
-    undefined.checkbox != undefined.checkbox;
-  };
-  return {
-    checkbox: checkbox,
-    title,
-    details,
-    date,
-    id,
-    projectID,
-    changecheckboxstatus,
-  };
-};
-
-const taskFormInput = () => {
-  const title = document.getElementById("listInput").value;
-  const details = document.getElementById("listInputDetail").value;
-  const date = document.getElementById("listInputDate").value;
-  const dataId = getDataID();
-  const taskID = newTaskID();
-  let checkbox = false;
-
-  const newtask = createTask(title, details, date, taskID, dataId, false);
-
-  console.log(newtask);
-
-  _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[dataId].taskList.push(newtask);
-  // updateStorage(projectList);
-  (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayTask)(title, details, date, taskID, checkbox);
-};
-
-const getDataID = () => {
-  const selectedProject = document.querySelector(".selected");
-  return selectedProject.dataset.project;
-};
-const newTaskID = () => {
-  let id = _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[getDataID()].taskList.length;
-  console.log(id);
-  return id;
-};
-
-
-const checktasks = (e) => {
-  console.log(e.target.id)
-  if(e.target.id === "deleteTask"){
-    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteTask)(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
-  }
-}
-
 
 
 
@@ -488,8 +492,8 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
+/* harmony import */ var _taskcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 
 
 
