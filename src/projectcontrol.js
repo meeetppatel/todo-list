@@ -52,16 +52,9 @@ const projectFormInput = () => {
   const newProject = createProject(dataProject, projectName);
 
   projectList.push(newProject);
-  // updateStorage(projectList);
+  updateStorage(projectList);
   displayProject(projectName, dataProject);
   formDisplay().hideprojectForm();
-
-  // e.preventDefault();
-
-  // const deleteProjectBtn = document.querySelector("#deletebtn");
-  // deleteProjectBtn.addEventListener("click", (e) => {
-  //     deleteProject(e);
-  // });
 };
 
 const nextDataId = () => {

@@ -2,6 +2,8 @@ import { updateStorage } from "./storage";
 
 let projectList = [];
 
+projectList = JSON.parse(localStorage.getItem("projects"));
+
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
   const taskform = document.getElementById("taskForm");
@@ -165,8 +167,9 @@ const deleteProject = (id) => {
 
 const deleteTask = (projectid, taskid) => {
   projectList[projectid].taskList.splice(taskid, 1);
-  getTask(projectid);
   sorttasks(projectid);
+  updateStorage(projectList);
+  getTask(projectid);
 };
 const sortArray = () => {
   let i = 0;
@@ -185,6 +188,8 @@ const sorttasks = (projectid) => {
     i++;
   });
   projectList[projectid].taskList.sort((a, b) => a.id - b.id);
+  updateStorage(projectList);
+
 };
 
 const checkboxupdate = (projectid, taskid) => {

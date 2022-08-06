@@ -50,7 +50,7 @@ const taskFormInput = () => {
   console.log(newtask);
 
   projectList[dataId].taskList.push(newtask);
-  // updateStorage(projectList);
+  updateStorage(projectList);
   displayTask(title, details, date, taskID, checkbox);
 };
 

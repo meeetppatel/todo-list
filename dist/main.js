@@ -56,16 +56,9 @@ const projectFormInput = () => {
   const newProject = createProject(dataProject, projectName);
 
   _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList.push(newProject);
-  // updateStorage(projectList);
+  (0,_storage__WEBPACK_IMPORTED_MODULE_1__.updateStorage)(_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList);
   (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayProject)(projectName, dataProject);
   (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideprojectForm();
-
-  // e.preventDefault();
-
-  // const deleteProjectBtn = document.querySelector("#deletebtn");
-  // deleteProjectBtn.addEventListener("click", (e) => {
-  //     deleteProject(e);
-  // });
 };
 
 const nextDataId = () => {
@@ -172,7 +165,7 @@ const taskFormInput = () => {
   console.log(newtask);
 
   _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[dataId].taskList.push(newtask);
-  // updateStorage(projectList);
+  (0,_storage__WEBPACK_IMPORTED_MODULE_1__.updateStorage)(_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList);
   (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayTask)(title, details, date, taskID, checkbox);
 };
 
@@ -223,6 +216,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let projectList = [];
+
+projectList = JSON.parse(localStorage.getItem("projects"));
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
@@ -387,8 +382,9 @@ const deleteProject = (id) => {
 
 const deleteTask = (projectid, taskid) => {
   projectList[projectid].taskList.splice(taskid, 1);
-  getTask(projectid);
   sorttasks(projectid);
+  (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projectList);
+  getTask(projectid);
 };
 const sortArray = () => {
   let i = 0;
@@ -407,6 +403,8 @@ const sorttasks = (projectid) => {
     i++;
   });
   projectList[projectid].taskList.sort((a, b) => a.id - b.id);
+  (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projectList);
+
 };
 
 const checkboxupdate = (projectid, taskid) => {
@@ -516,6 +514,8 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.projectevents)();
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
+(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.getProjects)(_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList);
+(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.allTask)();
 
 // displayProject("hello",22);
 // displayTask("hello", "details", "2022-08-07", 0, false);
