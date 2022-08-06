@@ -77,12 +77,13 @@ const checkproject = (e) => {
     updateHeader(e.target.textContent);
     console.log(e.target.getAttribute("data-project"))
     getTask(e.target.getAttribute("data-project"));
+    formDisplay().showaddtaskbtn();
   }
   if (check === "inbox") {
     selectTile(e.target);
     allTask();
     updateHeader(e.target.textContent);
-    formDisplay().hidetaskForm();
+    formDisplay().hideaddtaskbtn();
   }
   if(check === "deletebtn"){
       deleteProject(e.target.dataset.id);

@@ -5,6 +5,7 @@ let projectList = [];
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
   const taskform = document.getElementById("taskForm");
+  const addtaskBtn = document.getElementById("addtask")
   const hideprojectForm = () => {
     projectform.classList.add("hidden");
   };
@@ -19,12 +20,17 @@ const formDisplay = () => {
     taskform.classList.remove("hidden");
     taskform.reset();
   };
-  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm };
+  const hideaddtaskbtn = () => {
+    addtaskBtn.classList.add("hidden");
+    addtaskBtn.reset();
+  }
+  const showaddtaskbtn = () => {
+    addtaskBtn.classList.remove("hidden");
+    addtaskBtn.reset();
+  }
+  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm ,showaddtaskbtn, hideaddtaskbtn};
 };
 
-const displaycontrollers = (projects) => {
-  let storage = updateStorage(projects);
-};
 
 const allTask = () => {
   clearContent();
