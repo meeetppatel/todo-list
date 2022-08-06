@@ -5,7 +5,8 @@ let projectList = [];
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
   const taskform = document.getElementById("taskForm");
-  const addtaskBtn = document.getElementById("addtask")
+  const addtaskBtn = document.getElementById("addtask");
+  const delbtn = document.querySelectorAll(".deltask");
   const hideprojectForm = () => {
     projectform.classList.add("hidden");
   };
@@ -22,31 +23,34 @@ const formDisplay = () => {
   };
   const hideaddtaskbtn = () => {
     addtaskBtn.classList.add("hidden");
-  }
+    delbtn.forEach(btn =>{
+      btn.classList.add("hidden");
+    })
+  };
   const showaddtaskbtn = () => {
     addtaskBtn.classList.remove("hidden");
-  }
-  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm ,showaddtaskbtn, hideaddtaskbtn};
+    delbtn.forEach(btn =>{
+      btn.classList.remove("hidden");
+    })
+  };
+  return {
+    hideprojectForm,
+    hidetaskForm,
+    showprojectForm,
+    showtaskForm,
+    showaddtaskbtn,
+    hideaddtaskbtn,
+  };
 };
-
 
 const allTask = () => {
   clearContent();
   projectList.forEach((project) => {
     project.taskList.forEach((task) => {
-      displayTask(
-        task.title,
-        task.details,
-        task.date,
-        task.id,
-        task.checkbox
-      );
+      displayTask(task.title, task.details, task.date, task.id, task.checkbox);
     });
   });
-
-  // deleteBtnDisable();
 };
-
 
 const displayProject = (projectName, id) => {
   const projectList = document.querySelector(".project-list");
@@ -64,7 +68,7 @@ const displayProject = (projectName, id) => {
   deletebtn.classList.add("fa-times");
 
   project.dataset.id = id;
-  console.log(id)
+  console.log(id);
 
   deletebtn.dataset.id = id;
 
@@ -73,7 +77,6 @@ const displayProject = (projectName, id) => {
 };
 
 const displayTask = (title, details, date, taskID, checkbox) => {
-
   const tasks = document.querySelector(".tasks");
 
   const taskdiv = document.createElement("div");
@@ -83,13 +86,13 @@ const displayTask = (title, details, date, taskID, checkbox) => {
   checkBox.classList.add("checkbox");
   const check = document.createElement("input");
   check.id = "check";
-  check.type= "checkbox";
+  check.type = "checkbox";
   check.checked = checkbox;
   checkBox.appendChild(check);
 
   const taskdetails = document.createElement("div");
   taskdetails.classList.add("task-info");
-  
+
   const taskTitle = document.createElement("div");
   taskTitle.classList.add("task-title");
   taskTitle.textContent = title;
@@ -109,15 +112,15 @@ const displayTask = (title, details, date, taskID, checkbox) => {
   taskDate.type = "date";
   taskDate.value = date;
   taskDate.readOnly = true;
-  
+
   const deleteTaskBtn = document.createElement("button");
   deleteTaskBtn.id = "deleteTask";
+  deleteTaskBtn.classList.add("deltask");
   deleteTaskBtn.classList.add("fas");
   deleteTaskBtn.classList.add("fa-times");
 
   end.appendChild(taskDate);
   end.appendChild(deleteTaskBtn);
-
 
   taskdiv.dataset.task = taskID;
   console.log(taskID);
@@ -126,32 +129,25 @@ const displayTask = (title, details, date, taskID, checkbox) => {
   taskdiv.appendChild(taskdetails);
   taskdiv.appendChild(end);
 
-
   tasks.appendChild(taskdiv);
-};
+}; 
 
 const clearContent = () => {
-  document.querySelector(".tasks").innerHTML="";
-}
+  document.querySelector(".tasks").innerHTML = "";
+};
 
 const getTask = (data) => {
   clearContent();
   projectList[data].taskList.forEach((task) => {
-    displayTask(
-      task.title,
-      task.details,
-      task.date,
-      task.id,
-      task.checkbox
-    );
+    displayTask(task.title, task.details, task.date, task.id, task.checkbox);
   });
 };
 
 const getProjects = (projects) => {
   document.querySelector(".project-list").replaceChildren();
-  projects.forEach((project) =>{
-    if(project != null) {
-      displayProject(project.name, project.dataProject)
+  projects.forEach((project) => {
+    if (project != null) {
+      displayProject(project.name, project.dataProject);
     }
   });
 };
@@ -159,37 +155,67 @@ const getProjects = (projects) => {
 const updateHeader = (title) => {
   const header = document.getElementById("top-text");
   header.textContent = title;
-}
+};
 
 const deleteProject = (id) => {
-  projectList.splice(id,1);
+  projectList.splice(id, 1);
   sortArray();
   getProjects(projectList);
-}
+};
 
 const deleteTask = (projectid, taskid) => {
-  projectList[projectid].taskList.splice(taskid,1);
+  projectList[projectid].taskList.splice(taskid, 1);
   getTask(projectid);
   sorttasks(projectid);
-}
+};
 const sortArray = () => {
-  let i=0;
-  projectList.forEach((project) =>{
-    project.dataProject=i;
+  let i = 0;
+  projectList.forEach((project) => {
+    project.dataProject = i;
     i++;
   });
-  projectList.sort((a,b) => a.dataProject - b.dataProject);
+  projectList.sort((a, b) => a.dataProject - b.dataProject);
   updateStorage(projectList);
-}
+};
 
 const sorttasks = (projectid) => {
-  let i=0;
-  projectList[projectid].taskList.forEach((task) =>{
-    task.id=i;
+  let i = 0;
+  projectList[projectid].taskList.forEach((task) => {
+    task.id = i;
     i++;
   });
-  projectList[projectid].taskList.sort((a,b) => a.id - b.id);
-}
+  projectList[projectid].taskList.sort((a, b) => a.id - b.id);
+};
+
+const checkboxupdate = (projectid, taskid) => {
+  projectList[projectid].taskList.forEach((task) => {
+    if (task.id == taskid) {
+      if (task.checkbox === false) {
+        task.checkbox = true;
+      //  task.classList.add('checked');
+      } else {
+        task.checkbox = false;
+        // task.classList.remove('checked');
+      }
+    }
+    console.log(task.checkbox);
+  });
+  updateStorage(projectList);
+  getTask(projectid);
+};
 
 
-export { formDisplay, displayProject, deleteProject, projectList, displayTask , getTask,getProjects, updateHeader, clearContent, allTask, deleteTask};
+export {
+  formDisplay,
+  displayProject,
+  checkboxupdate,
+  deleteProject,
+  projectList,
+  displayTask,
+  getTask,
+  getProjects,
+  updateHeader,
+  clearContent,
+  allTask,
+  deleteTask,
+};

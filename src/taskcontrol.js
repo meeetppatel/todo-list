@@ -1,4 +1,4 @@
-import { formDisplay, displayTask, deleteTask, getTask } from "./displaycontrol";
+import { formDisplay, displayTask, deleteTask, getTask, checkboxupdate } from "./displaycontrol";
 import { updateStorage } from "./storage";
 import { projectList } from "./displaycontrol";
 
@@ -69,6 +69,9 @@ const checktasks = (e) => {
   console.log(e.target.id)
   if(e.target.id === "deleteTask"){
     deleteTask(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
+  }
+  if(e.target.id === "check"){
+    checkboxupdate(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
   }
 }
 
