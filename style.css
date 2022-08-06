@@ -35,7 +35,7 @@ header {
 main {
     min-height: 100vh;
     background-color: var(--white);
-    display:flex;
+    display: flex;
 }
 
 .left {
@@ -65,11 +65,13 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-i{
+
+i {
     margin-right: 10px;
 }
 
-button:hover,.project:hover {
+button:hover,
+.project:hover {
     background-color: rgba(0, 0, 0, 0.06);
     cursor: pointer;
 }
@@ -82,9 +84,11 @@ button:hover,.project:hover {
     padding-bottom: 30px;
     width: 100%;
 }
-.textborder{
+
+.textborder {
     border-bottom: 1px solid var(--black);
 }
+
 .projects {
     display: flex;
     flex-direction: column;
@@ -99,98 +103,110 @@ button:hover,.project:hover {
 }
 
 
-.hidden,#projectForm.hidden{
+.hidden{
+    visibility: hidden;
+}
+#projectForm.hidden,#taskForm.hidden{
     display: none;
 }
 
 #projectForm {
-    display:flex;
-    flex:1;
-    align-items:flex-start;
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
     opacity: 1;
     pointer-events: auto;
     position: relative;
     transition-delay: 1s;
     max-height: 500px;
     transition: max-height 0.8s ease-out, opacity 300ms ease-in-out;
-    
+
 }
+
 input[type=text],
 textarea,
-input[type=date]{
-    width:100%;
+input[type=date] {
+    width: 100%;
     box-sizing: border-box;
-    font-size:1rem;
+    font-size: 1rem;
     background-color: white;
     border: solid 1px var(--black);
     border-radius: 4px;
-    padding:5px;
+    padding: 5px;
     resize: none;
     color: var(--black);
 }
-.formButtons{
-    margin-top:5px;
+
+.formButtons {
+    margin-top: 5px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     width: 100%;
 }
+
 .projectSubmitBtn,
 .projectCancelBtn,
 .listSubmitBtn,
-.listCancelBtn{
-    width:70px;
-    margin:5px;
+.listCancelBtn {
+    width: 70px;
+    margin: 5px;
     border: none;
     border-radius: 3px;
     color: black;
     cursor: pointer;
-    padding:5px;
+    padding: 5px;
 }
+
 .projectSubmitBtn,
-.listSubmitBtn
-{
+.listSubmitBtn {
     background-color: var(--black);
     color: var(--white);
 }
+
 .projectCancelBtn,
-.listCancelBtn{
+.listCancelBtn {
     background-color: var(--white);
     border: 1px solid var(--black);
     color: var(--black);
 }
-#projectTitle{
+
+#projectTitle {
     display: flex;
     align-items: center;
     position: relative;
 }
-#deletebtn{
-    width:5px;
+
+#deletebtn {
+    width: 5px;
     font-size: 15px;
     position: absolute;
     right: 0;
     text-align: right;
 }
-#deleteTask{
+
+#deleteTask {
     font-size: 15px;
-    padding:0;
+    padding: 0;
     margin: 0
 }
 
 
-.right{
+.right {
     padding: 20px 40px 20px 40px;
     display: flex;
     flex-direction: column;
-    min-width:75vw;
+    min-width: 75vw;
     min-height: 100vh;
     margin-left: 2.5vw;
     align-items: center;
     text-align: left;
 }
-#top-text{
+
+#top-text {
     width: 50vw;
     text-align: left;
 }
+
 .tasks {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -199,10 +215,11 @@ input[type=date]{
     flex-direction: column;
     gap: 20px;
 }
-.task{
+
+.task {
     padding: 20px;
     border: 1px solid var(--black);
-    border-radius:5px;
+    border-radius: 5px;
     width: 50vw;
     display: flex;
     align-items: center;
@@ -216,19 +233,23 @@ input[type=date]{
     flex-direction: column;
     gap: 10px;
 }
-.task-end{
+
+.task-end {
     display: flex;
     position: absolute;
     right: 0;
     text-align: right;
 }
-#task-date{
+
+#task-date {
     width: 230px;
+    position: relative;
 }
 
 #addtask {
     width: 200px;
 }
+
 #taskForm {
     position: relative;
     max-width: 400px;
@@ -250,4 +271,24 @@ input[type="checkbox"] {
 
 
 
+input[type="checkbox"]::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: bolder;
+    content: "\f00c";
+    font-size: 10px;
+    display: flex;
+    color: var(--white);
+    display: none;
+}
 
+input[type="checkbox"]:checked {
+    background: var(--black);
+}
+
+input[type="checkbox"]:checked::after {
+    display: block;
+}
+
+.checked{
+    text-decoration-line: line-through; 
+}
