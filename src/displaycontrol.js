@@ -167,7 +167,6 @@ const deleteProject = (id) => {
   projectList.splice(id,1);
   sortArray();
   getProjects(projectList);
-
 }
 
 const deleteTask = (projectid, taskid) => {

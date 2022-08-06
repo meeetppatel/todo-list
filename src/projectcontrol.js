@@ -6,7 +6,7 @@ import {
   updateHeader,
   projectList,
   allTask,
-  getProjects
+  getProjects,
 } from "./displaycontrol";
 import { updateStorage } from "./storage";
 
@@ -75,18 +75,23 @@ const checkproject = (e) => {
   if (check === "projectTitle") {
     selectTile(e.target);
     updateHeader(e.target.textContent);
-    console.log(e.target.getAttribute("data-project"))
+    console.log(e.target.getAttribute("data-project"));
     getTask(e.target.getAttribute("data-project"));
     formDisplay().showaddtaskbtn();
   }
   if (check === "inbox") {
     selectTile(e.target);
+    console.log(e.target);
     allTask();
     updateHeader(e.target.textContent);
     formDisplay().hideaddtaskbtn();
   }
-  if(check === "deletebtn"){
-      deleteProject(e.target.dataset.id);
+  if (check === "deletebtn") {
+    deleteProject(e.target.dataset.id);
+    document.getElementById("inbox").classList.add("selected");
+    updateHeader("Inbox");
+    allTask();
+    formDisplay().hideaddtaskbtn();
   }
 };
 
