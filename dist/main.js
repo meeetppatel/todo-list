@@ -516,10 +516,6 @@ __webpack_require__.r(__webpack_exports__);
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
 (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.getProjects)(_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList);
 (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.allTask)();
-
-// displayProject("hello",22);
-// displayTask("hello", "details", "2022-08-07", 0, false);
-
 })();
 
 /******/ })()
