@@ -240,11 +240,9 @@ const formDisplay = () => {
   };
   const hideaddtaskbtn = () => {
     addtaskBtn.classList.add("hidden");
-    addtaskBtn.reset();
   }
   const showaddtaskbtn = () => {
     addtaskBtn.classList.remove("hidden");
-    addtaskBtn.reset();
   }
   return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm ,showaddtaskbtn, hideaddtaskbtn};
 };
