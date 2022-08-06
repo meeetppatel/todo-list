@@ -137,9 +137,7 @@ const clearContent = () => {
 }
 
 const getTask = (data) => {
-  console.log(" getTask is called");
   clearContent();
-
   projectList[data].taskList.forEach((task) => {
     displayTask(
       task.title,
@@ -172,6 +170,11 @@ const deleteProject = (id) => {
 
 }
 
+const deleteTask = (projectid, taskid) => {
+  projectList[projectid].taskList.splice(taskid,1);
+  getTask(projectid);
+  sorttasks(projectid);
+}
 const sortArray = () => {
   let i=0;
   projectList.forEach((project) =>{
@@ -179,8 +182,17 @@ const sortArray = () => {
     i++;
   });
   projectList.sort((a,b) => a.dataProject - b.dataProject);
-  // updateStorage(projectList);
+  updateStorage(projectList);
+}
+
+const sorttasks = (projectid) => {
+  let i=0;
+  projectList[projectid].taskList.forEach((task) =>{
+    task.id=i;
+    i++;
+  });
+  projectList[projectid].taskList.sort((a,b) => a.id - b.id);
 }
 
 
-export { formDisplay, displayProject, deleteProject, projectList, displayTask , getTask,getProjects, updateHeader, clearContent, allTask};
+export { formDisplay, displayProject, deleteProject, projectList, displayTask , getTask,getProjects, updateHeader, clearContent, allTask, deleteTask};

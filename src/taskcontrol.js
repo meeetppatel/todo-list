@@ -1,4 +1,4 @@
-import { formDisplay, displayTask } from "./displaycontrol";
+import { formDisplay, displayTask, deleteTask, getTask } from "./displaycontrol";
 import { updateStorage } from "./storage";
 import { projectList } from "./displaycontrol";
 
@@ -14,8 +14,11 @@ const taskevents = () => {
     e.preventDefault();
     taskFormInput();
     formDisplay().hidetaskForm();
-    // console.log(projectArray);
-    // addProjectToArray();
+
+  });
+  const taskdiv = document.querySelector(".tasks");
+  taskdiv.addEventListener("click", (e) => {
+    checktasks(e);
   });
 };
 
@@ -51,18 +54,22 @@ const taskFormInput = () => {
   displayTask(title, details, date, taskID, checkbox);
 };
 
-
-
 const getDataID = () => {
   const selectedProject = document.querySelector(".selected");
-  // console.log(selectedProject.dataset.project);
   return selectedProject.dataset.project;
 };
-
 const newTaskID = () => {
   let id = projectList[getDataID()].taskList.length;
   console.log(id);
   return id;
 };
+
+
+const checktasks = (e) => {
+  console.log(e.target.id)
+  if(e.target.id === "deleteTask"){
+    deleteTask(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
+  }
+}
 
 export { taskevents };

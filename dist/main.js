@@ -114,6 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "allTask": () => (/* binding */ allTask),
 /* harmony export */   "clearContent": () => (/* binding */ clearContent),
 /* harmony export */   "deleteProject": () => (/* binding */ deleteProject),
+/* harmony export */   "deleteTask": () => (/* binding */ deleteTask),
 /* harmony export */   "displayProject": () => (/* binding */ displayProject),
 /* harmony export */   "displayTask": () => (/* binding */ displayTask),
 /* harmony export */   "formDisplay": () => (/* binding */ formDisplay),
@@ -262,9 +263,7 @@ const clearContent = () => {
 }
 
 const getTask = (data) => {
-  console.log(" getTask is called");
   clearContent();
-
   projectList[data].taskList.forEach((task) => {
     displayTask(
       task.title,
@@ -297,6 +296,11 @@ const deleteProject = (id) => {
 
 }
 
+const deleteTask = (projectid, taskid) => {
+  projectList[projectid].taskList.splice(taskid,1);
+  getTask(projectid);
+  sorttasks(projectid);
+}
 const sortArray = () => {
   let i=0;
   projectList.forEach((project) =>{
@@ -304,7 +308,16 @@ const sortArray = () => {
     i++;
   });
   projectList.sort((a,b) => a.dataProject - b.dataProject);
-  // updateStorage(projectList);
+  (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projectList);
+}
+
+const sorttasks = (projectid) => {
+  let i=0;
+  projectList[projectid].taskList.forEach((task) =>{
+    task.id=i;
+    i++;
+  });
+  projectList[projectid].taskList.sort((a,b) => a.id - b.id);
 }
 
 
@@ -352,8 +365,11 @@ const taskevents = () => {
     e.preventDefault();
     taskFormInput();
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
-    // console.log(projectArray);
-    // addProjectToArray();
+
+  });
+  const taskdiv = document.querySelector(".tasks");
+  taskdiv.addEventListener("click", (e) => {
+    checktasks(e);
   });
 };
 
@@ -389,19 +405,23 @@ const taskFormInput = () => {
   (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.displayTask)(title, details, date, taskID, checkbox);
 };
 
-
-
 const getDataID = () => {
   const selectedProject = document.querySelector(".selected");
-  // console.log(selectedProject.dataset.project);
   return selectedProject.dataset.project;
 };
-
 const newTaskID = () => {
   let id = _displaycontrol__WEBPACK_IMPORTED_MODULE_0__.projectList[getDataID()].taskList.length;
   console.log(id);
   return id;
 };
+
+
+const checktasks = (e) => {
+  console.log(e.target.id)
+  if(e.target.id === "deleteTask"){
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteTask)(getDataID(), e.target.parentNode.parentNode.getAttribute("data-task"));
+  }
+}
 
 
 
