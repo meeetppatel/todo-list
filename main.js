@@ -81,12 +81,13 @@ const checkproject = (e) => {
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
     console.log(e.target.getAttribute("data-project"))
     ;(0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.getTask)(e.target.getAttribute("data-project"));
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().showaddtaskbtn();
   }
   if (check === "inbox") {
     selectTile(e.target);
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.allTask)();
     (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.updateHeader)(e.target.textContent);
-    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hidetaskForm();
+    (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.formDisplay)().hideaddtaskbtn();
   }
   if(check === "deletebtn"){
       (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_0__.deleteProject)(e.target.dataset.id);
@@ -129,6 +130,7 @@ let projectList = [];
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
   const taskform = document.getElementById("taskForm");
+  const addtaskBtn = document.getElementById("addtask")
   const hideprojectForm = () => {
     projectform.classList.add("hidden");
   };
@@ -143,12 +145,17 @@ const formDisplay = () => {
     taskform.classList.remove("hidden");
     taskform.reset();
   };
-  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm };
+  const hideaddtaskbtn = () => {
+    addtaskBtn.classList.add("hidden");
+    addtaskBtn.reset();
+  }
+  const showaddtaskbtn = () => {
+    addtaskBtn.classList.remove("hidden");
+    addtaskBtn.reset();
+  }
+  return { hideprojectForm, hidetaskForm, showprojectForm, showtaskForm ,showaddtaskbtn, hideaddtaskbtn};
 };
 
-const displaycontrollers = (projects) => {
-  let storage = (0,_storage__WEBPACK_IMPORTED_MODULE_0__.updateStorage)(projects);
-};
 
 const allTask = () => {
   clearContent();
