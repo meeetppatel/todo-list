@@ -123,6 +123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "updateHeader": () => (/* binding */ updateHeader)
 /* harmony export */ });
 /* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _projectcontrol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+
 
 
 let projectList = [];
@@ -131,7 +133,7 @@ if (localStorage.getItem('projects')){
   console.log('projects found in local storage');
   projectList = JSON.parse(localStorage.getItem('projects'));
 }else{
-  let defaultproject = createProject("0", "default1");
+  let defaultproject = (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_1__.createProject)("0", "default1");
   projectList.push(defaultproject);
   getProjects(projectList);
 }
