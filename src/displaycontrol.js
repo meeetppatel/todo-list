@@ -1,5 +1,5 @@
 import { updateStorage } from "./storage";
-import { createProject } from "./projectcontrol";
+import {createProject } from "./projectcontrol";
 
 let projectList = [];
 

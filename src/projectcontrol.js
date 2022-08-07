@@ -96,4 +96,4 @@ const selectTile = (project) => {
   project.classList.add("selected");
 };
 
-export { projectevents };
+export { projectevents , createProject };
