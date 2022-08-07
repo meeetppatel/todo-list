@@ -130,14 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let projectList = [];
 
-if (localStorage.getItem('projects')){
-  console.log('projects found in local storage');
-  projectList = JSON.parse(localStorage.getItem('projects'));
-}else{
-  let defaultproject = (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_1__.createProject)("0", "default1");
-  projectList.push(defaultproject);
-  getProjects(projectList);
-}
+
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
@@ -369,6 +362,7 @@ const updateStorage = (projectList) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createTask": () => (/* binding */ createTask),
 /* harmony export */   "taskevents": () => (/* binding */ taskevents)
 /* harmony export */ });
 /* harmony import */ var _displaycontrol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
@@ -522,10 +516,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('projects')){
+      console.log('projects found in local storage');
+      _displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList = JSON.parse(localStorage.getItem('projects'));
+    }else{
+        const defaultproject = (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.createProject)(0, 'default');
+        _displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList.push(defaultproject);
+        (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.getProjects)(_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList)
+    }
+    console.log('DOM fully loaded and parsed');
+});
 (0,_projectcontrol__WEBPACK_IMPORTED_MODULE_0__.projectevents)();
 (0,_taskcontrol__WEBPACK_IMPORTED_MODULE_1__.taskevents)();
 (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.getProjects)(_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.projectList);
 (0,_displaycontrol__WEBPACK_IMPORTED_MODULE_2__.allTask)();
+
 })();
 
 /******/ })()

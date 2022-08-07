@@ -75,4 +75,4 @@ const checktasks = (e) => {
   }
 }
 
-export { taskevents };
+export { taskevents, createTask };

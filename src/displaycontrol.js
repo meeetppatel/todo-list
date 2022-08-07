@@ -3,14 +3,7 @@ import {createProject } from "./projectcontrol";
 
 let projectList = [];
 
-if (localStorage.getItem('projects')){
-  console.log('projects found in local storage');
-  projectList = JSON.parse(localStorage.getItem('projects'));
-}else{
-  let defaultproject = createProject("0", "default1");
-  projectList.push(defaultproject);
-  getProjects(projectList);
-}
+
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
