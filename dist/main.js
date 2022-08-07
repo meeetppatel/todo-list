@@ -131,6 +131,14 @@ __webpack_require__.r(__webpack_exports__);
 let projectList = [];
 
 
+const Alert = (() => {
+  document.getElementById('today').addEventListener('click', () =>{
+      alert('working on it!');
+  })
+  document.getElementById('thisweek').addEventListener('click', () =>{
+      alert('working on it!');
+  })
+})();
 
 const formDisplay = () => {
   const projectform = document.getElementById("projectForm");
